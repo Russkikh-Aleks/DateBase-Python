@@ -1,6 +1,6 @@
 from classes import Clients_db
 
-db = Clients_db('clients_db', 'postgres', 'Cfvjktn')
+db = Clients_db('', '', '')
 
 if db.conn:
     # 1. создание таблиц Clients, Phone
