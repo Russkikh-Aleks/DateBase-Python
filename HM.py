@@ -1,16 +1,18 @@
 from classes import Clients_db
 
-db = Clients_db('', '', '')
+db = Clients_db('clients_db', 'postgres', 'Cfvjktn')
 
 if db.conn:
     # 1. создание таблиц Clients, Phone
     db.create_table()
 
     # 2. Добавление новых клиентов в таблицу Clients
-    db.add_client('John', 'Travolta', 'big_john@google.com')
-    db.add_client('John', 'Malkovich', 'old_john@google.com')
+    db.add_client('John', 'Travolta', 'big_john@google.com',
+                  ['89112223344', '89029019009'])
+    db.add_client('John', 'Malkovich', 'old_john@google.com', '89010102030')
     db.add_client('Katty', 'Parry', 'sweet_cat@google.com')
     db.select_clients('2. Записи в таблице Clients после этапа 2')
+    db.select_phone('2. Записи в таблице Phone после этапа 2')
 
     # 3. Добавление телефонов для текущих клиентов
     db.add_phone(1, '89045667570')

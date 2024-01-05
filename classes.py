@@ -41,7 +41,7 @@ class Clients_db:
 
         self.conn.commit()
 
-    def add_client(self, name: str, surname: str, email: str):
+    def add_client(self, name: str, surname: str, email: str, phones: str | list[str] = None):
         '''Функция для добавления клиента в таблицу Clients
            Параметры: name - имя клиента
                       surname - фамилия клиента
@@ -54,6 +54,14 @@ class Clients_db:
             VALUES (%s, %s, %s);
             ''', (name, surname, email))
             self.conn.commit()
+            cur_id = self.search_id(name, surname, email)[0][0]
+            if phones:
+                if isinstance(phones, list):
+                    for phone in phones:
+                        self.add_phone(cur_id, phone)
+                elif isinstance(phones, str):
+                    self.add_phone(cur_id, phones)
+
         except psycopg2.errors.UniqueViolation:
             self.conn.rollback()
         except:
